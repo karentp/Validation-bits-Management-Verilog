@@ -1,0 +1,8 @@
+read_verilog mux_memoria4x1_4bitsconductual.v mux_memoria2x1_4bitsconductual.v;
+hierarchy -check -top mux_memoria4x1_4bitsconductual;
+proc; opt; fsm; opt; memory; opt
+techmap; opt;
+dfflibmap -liberty cmos_cells.lib;
+abc -liberty cmos_cells.lib;
+clean;
+write_verilog mux_memoria4x1_4bitsestructural.v;

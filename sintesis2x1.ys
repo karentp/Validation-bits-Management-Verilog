@@ -1,0 +1,8 @@
+read_verilog mux_memoria2x1_conductual.v;
+hierarchy -check -top mux_memoria2x1_conductual;
+proc; opt; fsm; opt; memory; opt
+techmap; opt;
+dfflibmap -liberty cmos_cells.lib;
+abc -liberty cmos_cells.lib;
+clean;
+write_verilog mux_memoria2x1_estructural.v;
