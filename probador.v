@@ -100,10 +100,7 @@ module probador(
             {dummy2, data_in3_4x1_4b} <= {dummy2, data_in3_4x1_4b} + 1; 
             {data_in0_4x1_4b, dummy2} <= {data_in0_4x1_4b, dummy2} + 1; 
             {data_in2_4x1_4b, dummy1} <= {data_in2_4x1_4b, dummy1} + 1; 
-            //{data_in1_4x1_4b} <= {data_in1_4x1_4b} + 1; 
-            //{data_in2_4x1_4b} <= {data_in2_4x1_4b} + 1; 
-            //{data_in3_4x1_4b} <= {data_in3_4x1_4b} + 1; 
-            
+
              
     
 

@@ -207,19 +207,24 @@ module mux_memoria4x1_4bitsestructural(clk, reset_L, selector4x1, valid_input, d
   (* src = "mux_memoria4x1_4bitsestructural.v:13" *)
   output [3:0] data_out4x1_estructural_4b;
   (* src = "mux_memoria4x1_4bitsestructural.v:17" *)
-  wire [3:0] data_out_S0;
-  (* src = "mux_memoria4x1_4bitsestructural.v:17" *)
-  wire [3:0] data_out_S1;
-  (* src = "mux_memoria4x1_4bitsestructural.v:17" *)
   wire [3:0] data_out_temp;
+  (* src = "mux_memoria4x1_4bitsestructural.v:17" *)
+  wire [3:0] data_out_temp1;
+  (* src = "mux_memoria4x1_4bitsestructural.v:17" *)
+  (* unused_bits = "0 1 2 3" *)
+  wire [3:0] data_out_temps;
   (* src = "mux_memoria4x1_4bitsestructural.v:5" *)
   input reset_L;
+  (* src = "mux_memoria4x1_4bitsestructural.v:19" *)
+  wire rest;
+  (* src = "mux_memoria4x1_4bitsestructural.v:20" *)
+  (* unused_bits = "0" *)
+  wire [1:0] sel;
   (* src = "mux_memoria4x1_4bitsestructural.v:6" *)
   input [1:0] selector4x1;
-  (* src = "mux_memoria4x1_4bitsestructural.v:25" *)
-  (* unused_bits = "0" *)
+  (* src = "mux_memoria4x1_4bitsestructural.v:24" *)
   wire temporal_valid;
-  (* src = "mux_memoria4x1_4bitsestructural.v:28" *)
+  (* src = "mux_memoria4x1_4bitsestructural.v:33" *)
   (* unused_bits = "0" *)
   wire temporal_valid2;
   (* src = "mux_memoria4x1_4bitsestructural.v:7" *)
@@ -228,40 +233,52 @@ module mux_memoria4x1_4bitsestructural(clk, reset_L, selector4x1, valid_input, d
   output valid_output;
   (* src = "mux_memoria4x1_4bitsestructural.v:18" *)
   wire valid_temp;
+  (* src = "mux_memoria4x1_4bitsestructural.v:23" *)
+  DFF _0_ (
+    .C(clk),
+    .D(reset_L),
+    .Q(rest)
+  );
+  (* src = "mux_memoria4x1_4bitsestructural.v:23" *)
+  DFF _1_ (
+    .C(clk),
+    .D(selector4x1[1]),
+    .Q(sel[1])
+  );
   (* module_not_derived = 32'd1 *)
-  (* src = "mux_memoria4x1_4bitsestructural.v:24" *)
+  (* src = "mux_memoria4x1_4bitsestructural.v:29" *)
   mux_memoria2x1_4bitsconductual muxEntrada01 (
     .clk(clk),
     .data_in0_4b(data_in0_4x1_4b),
     .data_in1_4b(data_in1_4x1_4b),
-    .data_out2x1_conductual_4b(data_out_S0),
+    .data_out2x1_conductual_4b(data_out_temp),
     .reset_L(reset_L),
     .selector(selector4x1[0]),
     .valid_input(valid_input),
     .valid_output(temporal_valid)
   );
   (* module_not_derived = 32'd1 *)
-  (* src = "mux_memoria4x1_4bitsestructural.v:27" *)
+  (* src = "mux_memoria4x1_4bitsestructural.v:32" *)
   mux_memoria2x1_4bitsconductual muxEntrada23 (
     .clk(clk),
     .data_in0_4b(data_in2_4x1_4b),
     .data_in1_4b(data_in3_4x1_4b),
-    .data_out2x1_conductual_4b(data_out_S1),
+    .data_out2x1_conductual_4b(data_out_temp1),
     .reset_L(reset_L),
     .selector(selector4x1[0]),
     .valid_input(valid_input),
     .valid_output(temporal_valid2)
   );
   (* module_not_derived = 32'd1 *)
-  (* src = "mux_memoria4x1_4bitsestructural.v:30" *)
+  (* src = "mux_memoria4x1_4bitsestructural.v:35" *)
   mux_memoria2x1_4bitsconductual muxEntradaFinal (
     .clk(clk),
-    .data_in0_4b(data_out_S0),
-    .data_in1_4b(data_out_S1),
-    .data_out2x1_conductual_4b(data_out_temp),
-    .reset_L(reset_L),
-    .selector(selector4x1[1]),
-    .valid_input(valid_input),
+    .data_in0_4b(data_out_temp),
+    .data_in1_4b(data_out_temp1),
+    .data_out2x1_conductual_4b(data_out_temps),
+    .reset_L(rest),
+    .selector(sel[1]),
+    .valid_input(temporal_valid),
     .valid_output(valid_temp)
   );
   assign data_out4x1_estructural_4b = data_out_temp;

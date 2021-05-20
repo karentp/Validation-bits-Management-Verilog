@@ -1,4 +1,4 @@
-read_verilog mux_memoria2x1_4bitsconductual.v mux_memoria2x1_conductual.v;
+read_verilog mux_memoria2x1_4bitsconductual.v 
 hierarchy -check -top mux_memoria2x1_4bitsconductual;
 proc; opt; fsm; opt; memory; opt
 techmap; opt;

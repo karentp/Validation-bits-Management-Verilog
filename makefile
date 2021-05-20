@@ -50,9 +50,9 @@ prueba_mux2x1: $(BANCO) cmos_cells.v  probador.v
 	@echo ----------------------------------
 	@echo Corriendo pruebas del estructural y conductual 2x1:
 	@echo ----------------------------------
-	iverilog -o prueba.vvp $(BANCO) cmos_cells.v mux_memoria2x1_conductual.v mux_memoria2x1_estructural.v probador.v
+	iverilog -o prueba.vvp $(BANCO) cmos_cells.v mux_memoria2x1_conductual.v mux_memoria2x1_estructural.v 
 	emacs --batch .\BancoPrueba_conductual_estructural.v  -f verilog-batch-auto
-	iverilog -o prueba.vvp $(BANCO) cmos_cells.v  mux_memoria2x1_conductual.v mux_memoria2x1_estructural.v probador.v
+	iverilog -o prueba.vvp $(BANCO) cmos_cells.v  mux_memoria2x1_conductual.v mux_memoria2x1_estructural.v 
 	vvp prueba.vvp
 
 prueba_mux2x14b: $(BANCO) cmos_cells.v  probador_2x1_4bits.v
@@ -90,7 +90,14 @@ prueba_mux4x14b: $(BANCO) cmos_cells.v  probador_2x1_4bits.v
 	gtkwave mux_memoria_valid.vcd
 
 4x1_4bit:
+	@echo Sintesis, pruebas y gtkwave del MUX 2X1 de 2 bits:
 	@echo ----------------------------------
+	$(MAKE) sintesis_mux2x1
+	@echo ----------------------------------
+	@echo ----------------------------------
+	@echo Sintesis, pruebas y gtkwave del MUX 2X1 de 4 bits:
+	@echo ----------------------------------
+	$(MAKE) sintesis_mux2x14b
 	@echo Sintesis, pruebas y gtkwave del MUX 2X1 de 4 bits:
 	@echo ----------------------------------
 	$(MAKE) sintesis_mux4x14b
